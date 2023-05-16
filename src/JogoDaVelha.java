@@ -1,4 +1,5 @@
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,11 @@ import javax.swing.*;
 public class JogoDaVelha extends JFrame {
 	JButton bt[] = new JButton[9];
 	boolean xo = false;
+	JLabel placar = new JLabel("Placar");
+	int contaPontosX = 0;
+	int contaPontosO = 0;
+	JLabel pontosX = new JLabel("X = "+contaPontosX);
+	JLabel pontosO = new JLabel("O = "+contaPontosO);
 	boolean[] click = new boolean[9];
 
 	public JogoDaVelha() {
@@ -16,6 +22,18 @@ public class JogoDaVelha extends JFrame {
 		setDefaultCloseOperation(3);
 		setLayout(null);
 		setBounds(250, 100, 700, 500);
+		add(placar);
+		add(pontosX);
+		add(pontosO);
+		placar.setBounds(500,30,100,100);
+		pontosX.setBounds(500,80,100,100);
+		pontosO.setBounds(500,110,100,100);
+		pontosX.setFont(new Font("Arial",Font.BOLD,15));
+		pontosO.setFont(new Font("Arial",Font.BOLD,15));
+		placar.setFont(new Font("Arial",Font.BOLD,30));
+		placar.setForeground(Color.red);
+		pontosX.setForeground(Color.blue);
+		pontosO.setForeground(Color.blue);
 		int cont = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -136,6 +154,10 @@ public class JogoDaVelha extends JFrame {
 			click[i] = false;
 		}
 	}
+	public void atualizarPlacar() {
+		pontosX.setText("X = "+contaPontosX);
+		pontosO.setText("O = "+contaPontosO);
+	}
 	public void ganhou() {
 		if(bt[0].getText() == "X" && bt[1].getText() == "X" && bt[2].getText() == "X" 
 				|| bt[3].getText() == "X" && bt[4].getText() == "X" && bt[5].getText() == "X"
@@ -146,6 +168,8 @@ public class JogoDaVelha extends JFrame {
 				|| bt[0].getText() == "X" && bt[4].getText() == "X" && bt[8].getText() == "X"
 				|| bt[2].getText() == "X" && bt[4].getText() == "X" && bt[6].getText() == "X"){
 			JOptionPane.showMessageDialog(null,"'X' Ganhou");
+			this.contaPontosX ++;
+			this.atualizarPlacar();
 			this.limpar();
 		}else if(bt[0].getText() == "O" && bt[1].getText() == "O" && bt[2].getText() == "O" 
 				|| bt[3].getText() == "O" && bt[4].getText() == "O" && bt[5].getText() == "O"
@@ -156,6 +180,8 @@ public class JogoDaVelha extends JFrame {
 				|| bt[0].getText() == "O" && bt[4].getText() == "O" && bt[8].getText() == "O"
 				|| bt[2].getText() == "O" && bt[4].getText() == "O" && bt[6].getText() == "O"){
 			JOptionPane.showMessageDialog(null,"'O' Ganhou");
+			this.contaPontosO++;
+			this.atualizarPlacar();
 			this.limpar();
 		}
 	}
