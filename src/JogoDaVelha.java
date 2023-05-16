@@ -8,6 +8,8 @@ import javax.swing.*;
 
 public class JogoDaVelha extends JFrame {
 	JButton bt[] = new JButton[9];
+	JButton btZerar = new JButton("Zerar Placar");
+	JButton btLimparJogo = new JButton("Novo Jogo");
 	boolean xo = false;
 	JLabel placar = new JLabel("Placar");
 	int contaPontosX = 0;
@@ -25,7 +27,11 @@ public class JogoDaVelha extends JFrame {
 		add(placar);
 		add(pontosX);
 		add(pontosO);
+		add(btZerar);
+		add(btLimparJogo);
 		placar.setBounds(500,30,100,100);
+		btZerar.setBounds(500,190,130,50);
+		btLimparJogo.setBounds(500,250,130,50);
 		pontosX.setBounds(500,80,100,100);
 		pontosO.setBounds(500,110,100,100);
 		pontosX.setFont(new Font("Arial",Font.BOLD,15));
@@ -146,19 +152,47 @@ public class JogoDaVelha extends JFrame {
 
 			}
 		});
+		btLimparJogo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
+		btZerar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zerarPlacar();
+			}
+		});
 		
+	}
+	
+	public void zerarPlacar() {
+		this.contaPontosO = 0;
+		this.contaPontosX = 0;
+		pontosX.setText("X = "+contaPontosX);
+		pontosO.setText("O = "+contaPontosO);
 	}
 	public void limpar() {
 		for(int i =0; i<9;i++) {
 			bt[i].setText("");
 			click[i] = false;
 		}
+		xo = false;
 	}
 	public void atualizarPlacar() {
 		pontosX.setText("X = "+contaPontosX);
 		pontosO.setText("O = "+contaPontosO);
 	}
 	public void ganhou() {
+		int cont = 0;
+		for(int i = 0; i<9;i++) {
+			if(click[i] == true) {
+				cont++;
+			}
+		}
 		if(bt[0].getText() == "X" && bt[1].getText() == "X" && bt[2].getText() == "X" 
 				|| bt[3].getText() == "X" && bt[4].getText() == "X" && bt[5].getText() == "X"
 				|| bt[6].getText() == "X" && bt[7].getText() == "X" && bt[8].getText() == "X"
@@ -182,6 +216,9 @@ public class JogoDaVelha extends JFrame {
 			JOptionPane.showMessageDialog(null,"'O' Ganhou");
 			this.contaPontosO++;
 			this.atualizarPlacar();
+			this.limpar();
+		}else if(cont == 9) {
+			JOptionPane.showMessageDialog(null,"Empate");
 			this.limpar();
 		}
 	}
