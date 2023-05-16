@@ -1,4 +1,5 @@
 import java.awt.Button;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +22,7 @@ public class JogoDaVelha extends JFrame {
 				bt[cont] = new JButton();
 				add(bt[cont]);
 				bt[cont].setBounds((100 * i) + 50, (100 * j) + 50, 95, 95);
+				bt[cont].setFont(new Font("Arial",Font.BOLD,40));
 				cont++;
 			}
 		}
